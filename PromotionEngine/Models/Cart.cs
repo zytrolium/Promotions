@@ -9,26 +9,30 @@ namespace PromotionEngine.Models
 {
     public class Cart<T> : ICart<T>
     {
-        private List<IItem<T>> _items;
+        private List<T> _skus;
 
         public Cart()
         {
-            _items = new List<IItem<T>>();
+            _skus = new List<T>();
         }
 
-        public Cart(List<IItem<T>> Items)
+        public Cart(List<T> Skus)
         {
-            _items = (Items == null) ? new List<IItem<T>>() : Items;
+            _skus = (Skus == null) ? new List<T>() : Skus;
         }
 
-        public void AddItemToCart(IItem<T> Item)
+        public void AddSkuToCart(T Sku)
         {
-            _items.Add(Item);
+            if (default(T).Equals(Sku))
+            {
+                throw new ArgumentException($"Sku cannot contain default value of type {Sku.GetType()}", "Sku");
+            }
+            _skus.Add(Sku);
         }
 
-        public List<IItem<T>> GetItemsInCart()
+        public List<T> GetSkus()
         {
-            return _items;
+            return _skus;
         }
     }
 }

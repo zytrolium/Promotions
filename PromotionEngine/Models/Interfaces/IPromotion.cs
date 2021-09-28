@@ -8,7 +8,7 @@ namespace PromotionEngine.Models.Interfaces
 {
     public interface IPromotion<T>
     {
-        List<IItem<T>> GetItemList();
+        List<T> GetSkus();
         double GetPrice();
     }
 }

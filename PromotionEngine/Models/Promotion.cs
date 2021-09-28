@@ -9,26 +9,31 @@ namespace PromotionEngine.Models
 {
     public class Promotion<T> : IPromotion<T>
     {
-        private List<IItem<T>> _itemList;
+        private List<T> _skus;
         private double _price;
-        public Promotion(List<IItem<T>> ItemList, double Price)
+        public Promotion(List<T> Skus, double Price)
         {
-            if (ItemList == null)
+            if (Skus == null)
             {
-                throw new ArgumentNullException("ItemList", "ItemList cannot be null");
+                throw new ArgumentNullException("Skus", "Skus cannot be null");
             }
-            _itemList = ItemList;
-            _price = Price;
-        }
 
-        public List<IItem<T>> GetItemList()
-        {
-            return _itemList;    
+            if (Skus.Count == 0)
+            {
+                throw new ArgumentException("Skus must contain at least one sku", "Skus");
+            }
+            _skus = Skus;
+            _price = Price;
         }
 
         public double GetPrice()
         {
             return _price;
+        }
+
+        public List<T> GetSkus()
+        {
+            return _skus;
         }
     }
 }

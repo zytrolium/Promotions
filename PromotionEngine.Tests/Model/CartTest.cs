@@ -15,15 +15,15 @@ namespace PromotionEngine.Tests.Model
         public void Get_Items_Of_Cart()
         {
             //Arrange
-            var orgItems = new List<IItem<char>>();
-            orgItems.Add(new Item<char>('B', 30));
-            orgItems.Add(new Item<char>('C', 20));
-            var cart = new Cart<char>(orgItems);
+            var orgSkus = new List<char>();
+            orgSkus.Add('B');
+            orgSkus.Add('C');
+            var cart = new Cart<char>(orgSkus);
             //Act
-            var items = cart.GetItemsInCart();
+            var skus = cart.GetSkus();
 
             //Assert
-            Assert.Equal(orgItems.Count, items.Count);
+            Assert.Equal(orgSkus.Count, skus.Count);
         }
 
         [Fact]
@@ -33,11 +33,11 @@ namespace PromotionEngine.Tests.Model
             var cart = new Cart<char>();
 
             //Act
-            cart.AddItemToCart(new Item<char>('A', 50));
-            var items = cart.GetItemsInCart();
+            cart.AddSkuToCart('A');
+            var skus = cart.GetSkus();
 
             //Assert
-            Assert.Single(items);
+            Assert.Single(skus);
         }
     }
 }

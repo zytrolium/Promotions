@@ -7,15 +7,38 @@ namespace PromotionEngine
 {
     public static class PromotionEngine<T>
     {
-        public static double GetPriceOfCart(ICart<T> Cart, List<IPromotion<T>> Promotions)
+        public static double GetPriceOfCart(ICart<T> Cart, List<IPromotion<T>> Promotions, Dictionary<T,double> SkuPrices)
         {
+            if (Cart == null)
+            {
+                throw new ArgumentNullException("Cart", "Null is not allowed for Cart parameter");
+            }
+            
+            if (Cart.GetSkus().Count() == 0)
+            {
+                return 0;
+            }
+
+            if (Promotions == null)
+            {
+                throw new ArgumentNullException("Promotions", "Null is not allowed for Promotions parameter");
+            }
+
+            if (SkuPrices == null)
+            {
+                throw new ArgumentNullException("SkuPrices", "Null is not allowed for SkuPrices parameter");
+            }
+
+            var groupedCartSku = Cart.GetSkus().GroupBy(s => s).ToDictionary(g => g.Key, g => g.Count());
+
+            EnsurePriceExistForAllSkus(groupedCartSku.Keys.ToList(), SkuPrices);
+                        
             double totalAmount = 0;
-            var groupedCartSku = Cart.GetItemsInCart().GroupBy(c => c.GetSku()).ToDictionary(g => g.Key, g => g.Count());
-            var itemPrices = GetItemPricesOfCart(Cart);
+            
 
             foreach(var p in Promotions)
             {
-                var groupedPromotionSkus = p.GetItemList().GroupBy(i => i.GetSku()).ToDictionary(g => g.Key, g => g.Count());
+                var groupedPromotionSkus = p.GetSkus().GroupBy(s => s).ToDictionary(g => g.Key, g => g.Count());
                 int qty = 1;
                 foreach(var (k,v) in groupedPromotionSkus)
                 {
@@ -41,21 +64,20 @@ namespace PromotionEngine
 
             foreach(var (k,v) in groupedCartSku)
             {
-                totalAmount += itemPrices[k] * v;
+                totalAmount += SkuPrices[k] * v;
             }
             return totalAmount;
         }
 
-        private static Dictionary<T,double> GetItemPricesOfCart(ICart<T> Cart)
+        private static void EnsurePriceExistForAllSkus(List<T> Skus,Dictionary<T,double> SkuPrices)
         {
-            Dictionary<T, double> itemPrices = new Dictionary<T, double>();
-            var distinctSkus = Cart.GetItemsInCart().Select(i => i.GetSku()).Distinct().ToList();
-            foreach (var sku in distinctSkus)
+            foreach(var sku in Skus)
             {
-                var item = Cart.GetItemsInCart().Where(c => c.GetSku().Equals(sku)).First();
-                itemPrices[sku] = item.GetPrice();
+                if (!SkuPrices.ContainsKey(sku))
+                {
+                    throw new ArgumentException($"Sku: {sku} from he cart, does not exist in the SkuPrices","SkuPrices");
+                }
             }
-            return itemPrices;
         }
     }
 }

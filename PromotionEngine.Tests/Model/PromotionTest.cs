@@ -15,17 +15,17 @@ namespace PromotionEngine.Tests.Model
         public void GetSkus_Of_Promotion_Items()
         {
             //Arrange
-            var orgItems = new List<IItem<char>>();
-            orgItems.Add(new Item<char>('C', 20));
-            orgItems.Add(new Item<char>('D', 25));
-            var p = new Promotion<char>(orgItems, 30);
+            var orgSkus = new List<char>();
+            orgSkus.Add('C');
+            orgSkus.Add('D');
+            var p = new Promotion<char>(orgSkus, 30);
             //Act
-            var items = p.GetItemList();
+            var skus = p.GetSkus();
 
             //Assert
-            for(int i = 0; i < items.Count; i++)
+            for(int i = 0; i < skus.Count; i++)
             {
-                Assert.Equal(orgItems[i].GetSku(), items[i].GetSku());
+                Assert.Equal(orgSkus[i], skus[i]);
             }
         }
 
@@ -33,11 +33,11 @@ namespace PromotionEngine.Tests.Model
         public void GetPrice_Of_Promotion()
         {
             //Arrange
-            var orgItems = new List<IItem<char>>();
-            orgItems.Add(new Item<char>('C', 20));
-            orgItems.Add(new Item<char>('D', 25));
+            var orgSkus = new List<char>();
+            orgSkus.Add('C');
+            orgSkus.Add('D');
             var orgPrice = 30;
-            var p = new Promotion<char>(orgItems, orgPrice);
+            var p = new Promotion<char>(orgSkus, orgPrice);
             //Act
             var price = p.GetPrice();
 
