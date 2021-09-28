@@ -21,12 +21,12 @@ namespace PromotionEngine.Models
             _items = (Items == null) ? new List<IItem<T>>() : Items;
         }
 
-        public void addItemToCart(IItem<T> Item)
+        public void AddItemToCart(IItem<T> Item)
         {
             _items.Add(Item);
         }
 
-        public List<IItem<T>> getItemsInCart()
+        public List<IItem<T>> GetItemsInCart()
         {
             return _items;
         }

@@ -8,7 +8,7 @@ namespace PromotionEngine.Models.Interfaces
 {
     interface ICart<T>
     {
-        void addItemToCart(IItem<T> Item);
-        List<IItem<T>> getItemsInCart();
+        void AddItemToCart(IItem<T> Item);
+        List<IItem<T>> GetItemsInCart();
     }
 }
