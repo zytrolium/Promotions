@@ -39,7 +39,7 @@ namespace PromotionEngine
             foreach(var p in Promotions)
             {
                 var groupedPromotionSkus = p.GetSkus().GroupBy(s => s).ToDictionary(g => g.Key, g => g.Count());
-                int qty = 1;
+                int qty = int.MaxValue;
                 foreach(var (k,v) in groupedPromotionSkus)
                 {
                     if (!(groupedCartSku.ContainsKey(k)))
