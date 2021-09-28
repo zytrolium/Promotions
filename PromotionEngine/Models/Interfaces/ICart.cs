@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Models.Interfaces
 {
-    interface ICart<T>
+    public interface ICart<T>
     {
         void AddItemToCart(IItem<T> Item);
         List<IItem<T>> GetItemsInCart();
