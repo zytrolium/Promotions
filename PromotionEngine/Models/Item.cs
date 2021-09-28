@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Models
 {
-    public class CharItem : IItem<char>
+    public class Item<T> : IItem<T>
     {
-        private char _sku;
+        private T _sku;
         private double _price;
-        public CharItem(char Sku, double Price)
+        public Item(T Sku, double Price)
         {
-            if (!char.IsLetter(Sku))
+            if (Sku.Equals(default(T)))
             {
-                throw new ArgumentException($"Only letter allowed for sku. Recieved Sku as: {Sku}", "Sku");
+                throw new ArgumentException($"Sku cannot have the default value of type {Sku.GetType()}", "Sku");
             }
             _sku = Sku;
             _price = Price;
@@ -25,7 +25,7 @@ namespace PromotionEngine.Models
             return _price;
         }
 
-        public char GetSku()
+        public T GetSku()
         {
             return _sku;
         }

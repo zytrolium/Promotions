@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Models
 {
-    public class CharPromotion : IPromotion<char>
+    public class Promotion<T> : IPromotion<T>
     {
-        private List<IItem<char>> _itemList;
+        private List<IItem<T>> _itemList;
         private double _price;
-        public CharPromotion(List<IItem<char>> ItemList, double Price)
+        public Promotion(List<IItem<T>> ItemList, double Price)
         {
             if (ItemList == null)
             {
@@ -21,7 +21,7 @@ namespace PromotionEngine.Models
             _price = Price;
         }
 
-        public List<IItem<char>> GetItemList()
+        public List<IItem<T>> GetItemList()
         {
             return _itemList;    
         }

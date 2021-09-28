@@ -9,16 +9,16 @@ using Xunit;
 
 namespace PromotionEngine.Tests.Model
 {
-    public class CharPromotionTest
+    public class PromotionTest
     {
         [Fact]
         public void GetSkus_Of_Promotion_Items()
         {
             //Arrange
             var orgItems = new List<IItem<char>>();
-            orgItems.Add(new CharItem('C', 20));
-            orgItems.Add(new CharItem('D', 25));
-            var p = new CharPromotion(orgItems, 30);
+            orgItems.Add(new Item<char>('C', 20));
+            orgItems.Add(new Item<char>('D', 25));
+            var p = new Promotion<char>(orgItems, 30);
             //Act
             var items = p.GetItemList();
 
@@ -34,10 +34,10 @@ namespace PromotionEngine.Tests.Model
         {
             //Arrange
             var orgItems = new List<IItem<char>>();
-            orgItems.Add(new CharItem('C', 20));
-            orgItems.Add(new CharItem('D', 25));
+            orgItems.Add(new Item<char>('C', 20));
+            orgItems.Add(new Item<char>('D', 25));
             var orgPrice = 30;
-            var p = new CharPromotion(orgItems, orgPrice);
+            var p = new Promotion<char>(orgItems, orgPrice);
             //Act
             var price = p.GetPrice();
 
@@ -51,7 +51,7 @@ namespace PromotionEngine.Tests.Model
             //Arrenge
             //Act
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new CharPromotion(null, 50));
+            Assert.Throws<ArgumentNullException>(() => new Promotion<char>(null, 50));
 
         }
     }

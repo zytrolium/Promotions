@@ -7,14 +7,14 @@ using Xunit;
 using PromotionEngine.Models;
 namespace PromotionEngine.Tests.Model
 {
-    public class CharItemTest
+    public class ItemTest
     {
         [Fact]
-        public void GetSku_Of_CharItem()
+        public void GetSku_Of_Item_With_Char_Sku()
         {
             //Arrange
             var orgSku = 'A';
-            var item = new CharItem(orgSku, 50);
+            var item = new Item<char>(orgSku, 50);
 
             //Act
             var sku = item.GetSku();
@@ -28,7 +28,7 @@ namespace PromotionEngine.Tests.Model
         {
             //Arrange
             var orgPice = 50;
-            var item = new CharItem('A', orgPice);
+            var item = new Item<char>('A', orgPice);
 
             //Act
             var price = item.GetPrice();
@@ -38,12 +38,12 @@ namespace PromotionEngine.Tests.Model
         }
 
         [Fact]
-        public void Exception_For_Non_Letter_Sku_Of_CharItem()
+        public void Exception_For_Default_Sku_Value()
         {
             //Arrange
             //Act
             //Assert
-            Assert.Throws<ArgumentException>(() => new CharItem('1', 550));
+            Assert.Throws<ArgumentException>(() => new Item<char>(default(char), 550));
 
             
 
