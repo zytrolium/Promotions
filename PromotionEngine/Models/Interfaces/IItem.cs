@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Models.Interfaces
 {
-    public interface Item<T>
+    public interface IItem<T>
     {
         T GetSku();
         double GetPrice();
