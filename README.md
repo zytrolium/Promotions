@@ -33,8 +33,7 @@ it relies on the following 3 arguments
  - A List of promotions, where each promotion implements the IPromotion interface.
  - A dictionary containing the unit prices of the items in the cart.
 
-Interfaces and imiplementations 
-------------------------------
+Interfaces and imiplementations:
 
 - ICart implementation: An implementation of the ICart interface exist and is named Cart.
 
